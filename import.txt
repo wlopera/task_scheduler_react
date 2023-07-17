@@ -1,0 +1,32 @@
+----------------------------------------------------------------------
+Frontend: React
+----------------------------------------------------------------------
+> npm init -y
+> npm install react 
+> npm install react-dom 
+> npm install react-bootstrap-table-next 
+> npm install bootstrap 
+> npm install semantic-ui-react
+> npm install react-scripts
+> npm install @fortawesome/react-fontawesome@latest
+> npm install @fortawesome/free-solid-svg-icons
+> npm install --save @fortawesome/fontawesome-svg-core
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+Backend: Python - Flask
+----------------------------------------------------------------------
+> pip install flask-cors
+
+app.py:
+    from flask_cors import CORS
+    ...
+    
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+    # CORS(app, resources={r"/api/*": {"origins": "*"}}) # Mas generico
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
