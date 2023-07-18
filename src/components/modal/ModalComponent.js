@@ -27,13 +27,12 @@ const ModalComponent = ({
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !disabled) {
-      handleProcess();
+      handleProcess();2
     } else if (e.key === "Escape") {
       showModal();
     }
   };
 
-  console.log(3333, value)
   const type = value['name'] !== "" ? "MODIFY" : "ADD";
 
   return (

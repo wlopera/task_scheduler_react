@@ -37,7 +37,6 @@ const Jobs = ({
       setMessageJob(response.alert);
       onLoading(false);
     };
-    console.log(11111, order);
     if (order && order["id"] === -1) {
       setMessageJob(null);
       setDataTable([]);
@@ -49,7 +48,6 @@ const Jobs = ({
   const processAddRow = async (input) => {
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
-    console.log("crear job: ", input, order["id"]);
     const response = await service.create({
       order_id: order["id"],
       name: input["name"],
@@ -69,8 +67,8 @@ const Jobs = ({
   };
 
   const processModifyRow = async (old_value, new_value) => {
+    console.log(2222, old_value, new_value)
     setMessageJob({ type: "LOADING", text: "Procesando..." });
-    console.log("modificar job: ", old_value, new_value, order["id"]);
     onLoading(true);
     const response = await service.update({
       order_id: order["id"],
@@ -94,11 +92,13 @@ const Jobs = ({
   const handleDeleteRow = async (row) => {
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
+    console.log(1111, row)
     const response = await service.delete({
       order_id: order["id"],
-      job_id: row,
+      item_id: row['id'],
+      item_name: row['name']
     });
-    console.log("Eliminar tarea:", response);
+    // console.log("Eliminar tarea:", response);
     if (response.code === 200) {
       setSelectedRow(null);
       setDataTable(response.data);
@@ -113,22 +113,19 @@ const Jobs = ({
   };
 
   const addRow = () => {
-    console.log(11111, "addRow");
     setMessageJob({ type: "" });
     setRow({ id: -1, name: "" });
     setShow(true);
   };
 
   const modifyRow = (input) => {
-    console.log(22222, "modify");
-    setMessageJob({ type: "" });
+    setMessageJob({ type: "MODIFY" });
     setRow(input);
     setShow(true);
   };
 
   const handleProcessRow = async (newRow, type) => {
     handleSetShow();
-    console.log("Procesar tarea: ", newRow, type);
 
     if (type === "ADD") {
       processAddRow(newRow);
@@ -184,7 +181,7 @@ const Jobs = ({
                         {editButton && (
                           <button
                             className="btn btn-light btn-sm"
-                            onClick={() => modifyRow(item.name)}
+                            onClick={() => modifyRow(item)}
                           >
                             <i className="bi bi-pencil-square icon_table"></i>
                           </button>
@@ -192,7 +189,7 @@ const Jobs = ({
                         {deleteButton && (
                           <button
                             className="btn btn-light btn-sm ml-2"
-                            onClick={() => handleDeleteRow(item.name)}
+                            onClick={() => handleDeleteRow(item)}
                           >
                             <i className="bi bi-trash-fill icon_table"></i>
                           </button>
@@ -217,7 +214,7 @@ const Jobs = ({
         </div>
       </div>
       <ModalComponent
-        title={row.length === 0 ? ADD_TITLE_JOB : MODIFY_TITLE_JOB}
+        title={row['id'] === -1 ? ADD_TITLE_JOB : MODIFY_TITLE_JOB}
         placeHolder={PLACEHOLDER_JOB}
         show={show}
         showModal={handleSetShow}
