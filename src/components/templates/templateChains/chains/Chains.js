@@ -73,8 +73,37 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   const handleProcessRow = async (data) => {
     onLoading(true);
     handleSetShowEdit();
-    data = { ...data, ["order_id"]: orderId };
-    const response = await service.update(data);
+    const position = data["position"];
+    const old_position = data["old_position"];
+    const newData = dataTable["data"].map((item) => {
+      if (item["position"] === old_position) {
+        return {
+          class: data["class"],
+          error: data["error"],
+          id: data["id"],
+          name: data["name"],
+          next: data["next"],
+          package: data["package"],
+          position: Number(data["position"]),
+        };
+      } else if (item["position"] === Number(position)) {
+        item["position"] = Number(old_position);
+        return item;
+      }
+      return item;
+    });
+
+    // Ordena los red}gidtros por posicion
+    const result = newData.sort(sortByPosition);
+
+    // Eliminar el campo "position" de cada registro
+    const records = result.map((record) => {
+      const { position, ...records } = record;
+      return records;
+    });
+
+
+    const response = await service.update({ order_id: orderId, chains: records });
     if (response.code === 200) {
       response.data.forEach((item) => {
         if (item.active) {
@@ -102,6 +131,21 @@ const Chains = ({ orderId, editButton, onLoading }) => {
     }
     setTextFooter(response.alert);
     onLoading(false);
+  };
+
+  const sortByPosition = (a, b) => {
+    const positionA =
+      typeof a.position === "string" ? parseInt(a.position) : a.position;
+    const positionB =
+      typeof b.position === "string" ? parseInt(b.position) : b.position;
+
+    if (positionA < positionB) {
+      return -1;
+    }
+    if (positionA > positionB) {
+      return 1;
+    }
+    return 0;
   };
 
   return (
@@ -138,7 +182,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
                       key={item.id}
                       className={selectedRow === item.id ? "table-primary" : ""}
                     >
-                      <td className="text-center">{item.id}</td>
+                      <td className="text-center">{item.position}</td>
                       <td className="link-success">{item.name}</td>
                       <td>{item.package}</td>
                       <td>{item.class}</td>

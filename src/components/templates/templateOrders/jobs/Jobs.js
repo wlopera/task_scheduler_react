@@ -50,7 +50,7 @@ const Jobs = ({
     onLoading(true);
     const response = await service.create({
       order_id: order["id"],
-      name: input["name"],
+      name: input["name"]
     });
     // console.log("Agregar tarea:", response);
     if (response.code === 200) {
@@ -67,7 +67,6 @@ const Jobs = ({
   };
 
   const processModifyRow = async (old_value, new_value) => {
-    console.log(2222, old_value, new_value)
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
     const response = await service.update({
