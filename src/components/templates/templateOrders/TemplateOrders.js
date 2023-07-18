@@ -3,7 +3,7 @@ import Orders from "./orders/Orders";
 import Jobs from "./jobs/Jobs";
 
 const TemplateOrders = () => {
-  const [orderId, setOrderId] = useState(null);
+  const [order, setOrder] = useState(null);
   const [messageOrder, setMessageOrder] = useState(null);
   const [messageJob, setMessageJob] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const TemplateOrders = () => {
         >
           <div className="col-md-4">
             <Orders
-              onOrderId={setOrderId}
+              onOrder={setOrder}
               addButton={!loading} // Deshabilita el botón durante el loading
               editButton={!loading} // Deshabilita el botón durante el loading
               deleteButton={!loading} // Deshabilita el botón durante el loading
@@ -36,7 +36,7 @@ const TemplateOrders = () => {
           </div>
           <div className="col-md-4">
             <Jobs
-              orderId={orderId}
+              order={order}
               addButton={!loading} // Deshabilita el botón durante el loading
               editButton={!loading} // Deshabilita el botón durante el loading
               deleteButton={!loading} // Deshabilita el botón durante el loading

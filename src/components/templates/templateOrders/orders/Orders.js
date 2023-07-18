@@ -13,7 +13,7 @@ import {
 } from "../../../utils/Constants";
 
 const Orders = ({
-  onOrderId,
+  onOrder,
   addButton = false,
   editButton = false,
   deleteButton = false,
@@ -42,10 +42,10 @@ const Orders = ({
     getData();
   }, []);
 
-  const processAddRow = async (input) => {
+  const processAddRow = async (row) => {
     setMessageOrder({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
-    const response = await service.create(input['name']);
+    const response = await service.create(row['name']);
     // console.log("Agregar Orden:", response);
     if (response.code === 200) {
       response.data.forEach((item) => {
@@ -56,7 +56,7 @@ const Orders = ({
       });
 
       setDataTable(response.data);
-      onOrderId(input['name']);
+      onOrder(row);
     }
     setMessageOrder(response.alert);
     onLoading(false);
@@ -79,7 +79,7 @@ const Orders = ({
       });
 
       setDataTable(response.data);
-      onOrderId(new_order);
+      onOrder(new_order);
     }
     setMessageOrder(response.alert);
     onLoading(false);
@@ -93,7 +93,7 @@ const Orders = ({
     if (response.code === 200) {
       setSelectedRow(null);
       setDataTable(response.data);
-      onOrderId("");
+      onOrder("");
     }
     setMessageOrder(response.alert);
     onLoading(false);
@@ -125,10 +125,10 @@ const Orders = ({
     handleSetShow();
   };
 
-  const handleClick = (id, name) => {
+  const handleClick = (row) => {
     if (!loading) {
-      onOrderId(name);
-      setSelectedRow(id);
+      onOrder(row);
+      setSelectedRow(row['id']);
       setMessageOrder(null);
     }
   };
@@ -168,7 +168,7 @@ const Orders = ({
                     <tr
                       key={item.id}
                       className={selectedRow === item.id ? "table-primary" : ""}
-                      onClick={() => handleClick(item.id, item.name)}
+                      onClick={() => handleClick(item)}
                     >
                       <td>{item.name}</td>
                       <td>

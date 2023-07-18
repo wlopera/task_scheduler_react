@@ -33,7 +33,8 @@ const ModalComponent = ({
     }
   };
 
-  const type = value.name !== "" ? "MODIFY" : "ADD";
+  console.log(3333, value)
+  const type = value['name'] !== "" ? "MODIFY" : "ADD";
 
   return (
     <>

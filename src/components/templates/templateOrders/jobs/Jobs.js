@@ -12,7 +12,7 @@ import {
 } from "../../../utils/Constants";
 
 const Jobs = ({
-  orderId,
+  order,
   addButton = false,
   editButton = false,
   deleteButton = false,
@@ -29,7 +29,7 @@ const Jobs = ({
     const getData = async () => {
       setMessageJob({ type: "LOADING", text: "Cargando Tareas..." });
       onLoading(true);
-      const response = await service.get(orderId);
+      const response = await service.get(order["id"]);
       // console.log("Consultar Tareas:", response);
       if (response.code === 200) {
         setDataTable(response.data);
@@ -37,20 +37,22 @@ const Jobs = ({
       setMessageJob(response.alert);
       onLoading(false);
     };
-    if (orderId === "") {
+    console.log(11111, order);
+    if (order && order["id"] === -1) {
       setMessageJob(null);
       setDataTable([]);
-    } else if (orderId) {
+    } else if (order) {
       getData();
     }
-  }, [orderId]);
+  }, [order]);
 
   const processAddRow = async (input) => {
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
+    console.log("crear job: ", input, order["id"]);
     const response = await service.create({
-      order_id: orderId,
-      job_id: input,
+      order_id: order["id"],
+      name: input["name"],
     });
     // console.log("Agregar tarea:", response);
     if (response.code === 200) {
@@ -68,9 +70,10 @@ const Jobs = ({
 
   const processModifyRow = async (old_value, new_value) => {
     setMessageJob({ type: "LOADING", text: "Procesando..." });
+    console.log("modificar job: ", old_value, new_value, order["id"]);
     onLoading(true);
     const response = await service.update({
-      order_id: orderId,
+      order_id: order["id"],
       old_value,
       new_value,
     });
@@ -92,7 +95,7 @@ const Jobs = ({
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
     const response = await service.delete({
-      order_id: orderId,
+      order_id: order["id"],
       job_id: row,
     });
     console.log("Eliminar tarea:", response);
@@ -110,12 +113,14 @@ const Jobs = ({
   };
 
   const addRow = () => {
+    console.log(11111, "addRow");
     setMessageJob({ type: "" });
-    setRow("");
+    setRow({ id: -1, name: "" });
     setShow(true);
   };
 
   const modifyRow = (input) => {
+    console.log(22222, "modify");
     setMessageJob({ type: "" });
     setRow(input);
     setShow(true);
@@ -123,6 +128,7 @@ const Jobs = ({
 
   const handleProcessRow = async (newRow, type) => {
     handleSetShow();
+    console.log("Procesar tarea: ", newRow, type);
 
     if (type === "ADD") {
       processAddRow(newRow);
@@ -143,7 +149,7 @@ const Jobs = ({
           <div className="row">
             <div className="row">
               <div className="col-md-4">{TITLE_JOB}</div>
-              {addButton && orderId && orderId !== "" && (
+              {addButton && order && order["id"] !== "" && (
                 <div className="col-md-8 d-flex justify-content-end">
                   <button
                     className="btn btn-light btn-sm ml-2 "
