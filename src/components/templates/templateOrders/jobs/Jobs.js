@@ -91,7 +91,6 @@ const Jobs = ({
   const handleDeleteRow = async (row) => {
     setMessageJob({ type: "LOADING", text: "Procesando..." });
     onLoading(true);
-    console.log(1111, row)
     const response = await service.delete({
       order_id: order["id"],
       item_id: row['id'],

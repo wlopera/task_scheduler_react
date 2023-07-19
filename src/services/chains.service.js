@@ -83,9 +83,8 @@ class ChainsService {
   getParams(data) {
     try {
       return http.post(`${PATH_API}/params`, data).then((response) => {
-        // "Parámetros - tarea:", response);
         if (response.data.code === 200) {
-          if (response.data.params.length > 0) {
+          if (response.data.jobs.params.length > 0) {
             return {
               ...response.data,
               alert: {
@@ -124,9 +123,9 @@ class ChainsService {
     }
   }
 
-  updateParams(data) {
+  updateParams(data, name) {
     try {
-      // console.log("Update Params:", data);
+      console.log("Update Params:", data);
       return http.post(`${PATH_API}/update_params`, data).then((response) => {
         // console.log("Parámetros - tarea luego de actualizados:", response);
         if (response.data.code === 200) {
@@ -134,7 +133,7 @@ class ChainsService {
             ...response.data,
             alert: {
               type: "SUCCESS",
-              text: `Parámetros orden/tarea: ${data.order_id}/${data.job_id} -> actualizados satisfactoriamente.`,
+              text: `Parámetros: ${name} -> actualizados satisfactoriamente.`,
             },
           };
         } else {
