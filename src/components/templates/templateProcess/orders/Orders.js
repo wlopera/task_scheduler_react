@@ -41,7 +41,7 @@ const Orders = ({ onOrderId, setMessageOrder, onLoading, textFooter }) => {
 
   const play = async (item, conditional) => {
     if (conditional){
-      onOrderId(item.name);
+      onOrderId(item.id);
       setSelectedRow(item.id);
     }
   };
