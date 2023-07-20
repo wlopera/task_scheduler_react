@@ -1,15 +1,23 @@
 import { lazy } from "react";
+
 const TemplateOrders = lazy(() =>
   import("../components/templates/templateOrders/TemplateOrders")
 );
+
 const TemplateProcess = lazy(() =>
   import("../components/templates/templateProcess/TemplateProcess")
 );
+
 const TemplateChains = lazy(() =>
   import("../components/templates/templateChains/TemplateChains")
 );
+
 const History = lazy(() =>
-  import("../components/templates/templateProcess/history/History")
+import("../components/templates/templateProcess/history/History")
+);
+
+const TemplateAdmin = lazy(() =>
+  import("../components/templates/templateAdmin/TemplateAdmin")
 );
 
 var ThemeRoutes = [
@@ -54,10 +62,21 @@ var ThemeRoutes = [
   },
   {
     path: "/history",
-    name: "Historias",
+    name: "Historial",
     icon: "clock",
     component: History,
     updateHistory: true
+  },
+  {
+    navlabel: true,
+    name: "ADMINISTRACION",
+    icon: "mdi mdi-dots-horizontal",
+  },
+  {
+    path: "/admin",
+    name: "Base de datos",
+    icon: "play",
+    component: TemplateAdmin,
   },
   {
     path: "/",
