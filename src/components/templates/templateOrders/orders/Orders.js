@@ -208,7 +208,7 @@ const Orders = ({
         </div>
       </div>
       <ModalComponent
-        title={row.length === 0 ? ADD_TITLE_ORDER : MODIFY_TITLE_ORDER}
+        title={row['id'] === -1 ? ADD_TITLE_ORDER : MODIFY_TITLE_ORDER}
         placeHolder={PLACEHOLDER_ORDER}
         show={show}
         showModal={handleSetShow}
