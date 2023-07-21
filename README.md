@@ -28,11 +28,13 @@ Procesamiento de ordenes a través de tareas encadenadas - frontend React
  - Clase: Nombre d ela clase que se ejecuta dentro del paquete seleccionado
  - Siguiente: Próxima tarea en ejecutarse
  - Error: Tarea o fonal del procesamiento
+ - 
 ![cadena-tarea-2-modificar](https://github.com/wlopera/task_scheduler_react/assets/7141537/d2648da5-3747-49ff-8003-160a3423243b)
 
 ### Parámetros de la tarea
  - Clave: Nombre del paremtro
  - Valor: Valor del parámetro
+   
 ![cadena-tarea-2-parametros](https://github.com/wlopera/task_scheduler_react/assets/7141537/f9b2aec6-9cab-4d4e-9798-d241bdf3f3f2)
 
 ### Procesar Ordenes
