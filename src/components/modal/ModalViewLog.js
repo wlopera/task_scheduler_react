@@ -19,7 +19,6 @@ const ModalViewLog = ({ logName, show, closeModal }) => {
     console.log("Archivo log:", response);
     if (response.code === 200) {
       const logLines = JSON.parse(response.data);
-      console.log(1111, logLines);
       setMessages(logLines);
     }
   };

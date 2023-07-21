@@ -5,7 +5,6 @@ import uuid from "react-uuid";
 import "./ModalParams.css";
 
 const ModalParams = ({ show, showModal, processModal, params, row }) => {
-  console.log(12345, row)
   const [data, setData] = useState([]);
   const [disabled, setDisabled] = useState(false);
 
