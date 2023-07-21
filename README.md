@@ -21,17 +21,26 @@ Procesamiento de ordenes a través de tareas encadenadas - frontend React
 ### Cadenas de Tarea
 ![cadena-tarea-1](https://github.com/wlopera/task_scheduler_react/assets/7141537/6b2529f5-2ee0-4efe-a93e-b578ecf29f7e)
 ![cadena-tarea-2](https://github.com/wlopera/task_scheduler_react/assets/7141537/20518171-84b6-4473-8a62-0e415c1bdf98)
+
+### Agregar datos de la tarea o servicio a ejecutarse
+ - Posición: Orden de ejecución de la cadena-
+ - Paquete: Nombre del paquete que contiene el servicio a ejcutar
+ - Clase: Nombre d ela clase que se ejecuta dentro del paquete seleccionado
+ - Siguiente: Próxima tarea en ejecutarse
+ - Error: Tarea o fonal del procesamiento
 ![cadena-tarea-2-modificar](https://github.com/wlopera/task_scheduler_react/assets/7141537/d2648da5-3747-49ff-8003-160a3423243b)
+
+### Parámetros de la tarea
+ - Clave: Nombre del paremtro
+ - Valor: Valor del parámetro
 ![cadena-tarea-2-parametros](https://github.com/wlopera/task_scheduler_react/assets/7141537/f9b2aec6-9cab-4d4e-9798-d241bdf3f3f2)
 
 ### Procesar Ordenes
 ![procesar-1](https://github.com/wlopera/task_scheduler_react/assets/7141537/6bc6c5ea-ee69-45e3-8429-d2156cb44220)
 ![procesar-historico](https://github.com/wlopera/task_scheduler_react/assets/7141537/1f8507e4-e8ae-4d0f-ba79-e46c14a9340b)
 
-#### Modificar datos de la Tarea asociada a una cadena
+#### Mostrar detalles de la tarea ejecutada - logs 
 ![procesar-historico-2](https://github.com/wlopera/task_scheduler_react/assets/7141537/c6048ddb-3c31-4c53-a447-07da2ab3d38f)
-
-#### Agregar o modificar Parámetros
 ![procesar-historico-3](https://github.com/wlopera/task_scheduler_react/assets/7141537/928d4063-3067-4625-986a-71db57ef9524)
 
 ### Descargar Log
