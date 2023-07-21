@@ -46,9 +46,9 @@ class JobsService {
     }
   }
 
-  get_from_json(data) {
+  get_chains_by_job(data) {
     try {
-      return http.post(`${PATH_API}/fromJson/${data}`).then((response) => {
+      return http.post(`${PATH_API}/chains/${data}`).then((response) => {
         if (response.data.code === 200) {
           if (response.data.data.length > 0) {
             return {

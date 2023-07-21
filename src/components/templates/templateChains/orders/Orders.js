@@ -8,7 +8,6 @@ import './Orders.css'
 
 const Orders = ({ onOrderId, loading, onLoading }) => {
   const [dataTable, seDataTable] = useState(null);
-  const [row, setRow] = useState("");
   const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
@@ -25,10 +24,10 @@ const Orders = ({ onOrderId, loading, onLoading }) => {
     getData();
   }, []);
 
-  const handleClick = (id, name) => {
+  const handleClick = (id) => {
     if (!loading) {
       setSelectedRow(id);
-      onOrderId(name)
+      onOrderId(id)
     }
   };
 
@@ -56,7 +55,7 @@ const Orders = ({ onOrderId, loading, onLoading }) => {
                     <tr
                       key={item.id}
                       className={selectedRow === item.id ? "table-primary" : ""}
-                      onClick={() => handleClick(item.id, item.name)}
+                      onClick={() => handleClick(item.id)}
                     >
                       <td>{item.name}</td>
                     </tr>

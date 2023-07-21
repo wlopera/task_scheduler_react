@@ -39,22 +39,25 @@ const Jobs = ({
     const getData = async () => {
       setMessageJob({ type: "LOADING", text: "Cargando Tareas..." });
       onLoading(true);
-      const response = await service.get_from_json(orderId);
+      const response = await service.get_chains_by_job(orderId);
       // console.log("Consultar Tareas:", response);
       if (response.code === 200) {
-        let diagram = response.data.map((item) => ({
-          id: item.id,
-          text: item.name,
-        }));
-        diagram.push({
-          id: diagram.length + 1,
-          text: "error",
-        });
-        setDiagramData(diagram);
-        diagram.push({
-          id: diagram.length + 1,
-          text: "exito",
-        });
+        let diagram = [];
+        if (response.data.length > 0) {
+          diagram = response.data.map((item) => ({
+            id: item.id,
+            text: item.name,
+          }));
+          diagram.push({
+            id: diagram.length + 1,
+            text: "error",
+          });
+          setDiagramData(diagram);
+          diagram.push({
+            id: diagram.length + 1,
+            text: "exito",
+          });
+        }
         setDiagramData(diagram);
       }
       setMessageJob(response.alert);
