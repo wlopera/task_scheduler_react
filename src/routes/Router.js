@@ -1,5 +1,9 @@
 import { lazy } from "react";
 
+const Home = lazy(() =>
+  import("../components/templates/Home")
+);
+
 const TemplateOrders = lazy(() =>
   import("../components/templates/templateOrders/TemplateOrders")
 );
@@ -21,6 +25,12 @@ const TemplateAdmin = lazy(() =>
 );
 
 var ThemeRoutes = [
+  {
+    path: "/home",
+    name: "Inicio",
+    icon: "play",
+    component: Home,
+  },
   {
     navlabel: true,
     name: "Configuración",
@@ -80,8 +90,8 @@ var ThemeRoutes = [
   },
   {
     path: "/",
-    pathTo: "/dashboards/orders",
-    name: "Dashboard",
+    pathTo: "/home",
+    name: "Inicio",
     redirect: true,
   },
 ];
