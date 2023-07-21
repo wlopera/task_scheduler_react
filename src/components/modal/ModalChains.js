@@ -13,7 +13,7 @@ const ModalChains = ({
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    setData({ ...row, ["old_id"]: row.id });
+    setData({ ...row, ["old_position"]: row.position });
   }, [row, show]);
 
   const handleChange = (input) => {
@@ -61,8 +61,8 @@ const ModalChains = ({
               <div className="col-sm-8">
                 <select
                   className="form-select"
-                  value={data.id}
-                  name="id"
+                  value={data.position}
+                  name="position"
                   onChange={handleChange}
                 >
                   {positions.map((option) => (

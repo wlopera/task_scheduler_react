@@ -5,6 +5,7 @@ import uuid from "react-uuid";
 import "./ModalParams.css";
 
 const ModalParams = ({ show, showModal, processModal, params, row }) => {
+  console.log(12345, row)
   const [data, setData] = useState([]);
   const [disabled, setDisabled] = useState(false);
 
@@ -92,7 +93,7 @@ const ModalParams = ({ show, showModal, processModal, params, row }) => {
     <>
       <Modal centered show={show} onHide={showModal}>
         <Modal.Header>
-          <Modal.Title>{`Parámetros ${row.job_id}`}</Modal.Title>
+          <Modal.Title>{`Parámetros: ${row['name']}`}</Modal.Title>
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-light btn-sm ml-2 "

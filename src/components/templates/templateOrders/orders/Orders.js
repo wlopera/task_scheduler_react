@@ -51,12 +51,12 @@ const Orders = ({
       response.data.forEach((item) => {
         if (item.active) {
           setSelectedRow(item.id);
+          onOrder({id: item.id, name: row['name']});
           return;
         }
       });
 
       setDataTable(response.data);
-      onOrder(row);
     }
     setMessageOrder(response.alert);
     onLoading(false);

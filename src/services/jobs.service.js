@@ -46,9 +46,9 @@ class JobsService {
     }
   }
 
-  get_from_json(data) {
+  get_chains_by_job(data) {
     try {
-      return http.post(`${PATH_API}/fromJson/${data}`).then((response) => {
+      return http.post(`${PATH_API}/chains/${data}`).then((response) => {
         if (response.data.code === 200) {
           if (response.data.data.length > 0) {
             return {
@@ -97,7 +97,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "SUCCESS",
-              text: `Tarea "${data.job_id}" creada satisfactoriamente.`,
+              text: `Tarea "${data.name}" creada satisfactoriamente.`,
             },
           };
         } else {
@@ -105,7 +105,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "ERROR",
-              text: `Error creando tarea "${data.job_id}": [${response.data.code}] - ${response.data.message}`,
+              text: `Error creando tarea "${data.name}": [${response.data.code}] - ${response.data.message}`,
             },
           };
         }
@@ -116,7 +116,7 @@ class JobsService {
         data: response.data,
         message: {
           type: "ERROR",
-          text: `Error creando tarea "${data.job_id}": ${errorMessage}`,
+          text: `Error creando tarea "${data.name}": ${errorMessage}`,
         },
       };
     }
@@ -130,7 +130,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "SUCCESS",
-              text: `Modificar tarea "${data.old_value}" => "${data.new_value}".`,
+              text: `Modificar tarea "${data.old_value['name']}" => "${data.new_value['name']}".`,
             },
           };
         } else {
@@ -138,7 +138,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "ERROR",
-              text: `Error modificando tarea "${data.old_value}": [${response.data.code}] - ${response.data.message}`,
+              text: `Error modificando tarea "${data.old_value['name']}": [${response.data.code}] - ${response.data.message}`,
             },
           };
         }
@@ -149,7 +149,7 @@ class JobsService {
         data: response.data,
         message: {
           type: "ERROR",
-          text: `Error modificando tarea "${data.old_value}": ${errorMessage}`,
+          text: `Error modificando tarea "${data.old_value['name']}": ${errorMessage}`,
         },
       };
     }
@@ -163,7 +163,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "SUCCESS",
-              text: `Tarea "${data.job_id}" eliminada satisfactoriamente.`,
+              text: `Tarea "${data.item_name}" eliminada satisfactoriamente.`,
             },
           };
         } else {
@@ -171,7 +171,7 @@ class JobsService {
             ...response.data,
             alert: {
               type: "ERROR",
-              text: `Error eliminando tarea "${data.job_id}": [${response.data.code}] - ${response.data.message}`,
+              text: `Error eliminando tarea "${data.item_name}": [${response.data.code}] - ${response.data.message}`,
             },
           };
         }
@@ -182,7 +182,7 @@ class JobsService {
         data: response.data,
         message: {
           type: "ERROR",
-          text: `Error eliminando tarea "$${data.job_id}": ${errorMessage}`,
+          text: `Error eliminando tarea "$${data.item_name}": ${errorMessage}`,
         },
       };
     }

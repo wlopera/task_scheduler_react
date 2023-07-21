@@ -41,14 +41,15 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   const paramRow = async (input) => {
     onLoading(true);
     handleSetShowEdit();
-    const data = { order_id: orderId, job_id: input.name };
+    const data = { order_id: orderId, job_id: input.id };
+    console.log(1111, input, data);
     const response = await service.getParams(data);
     if (response.code === 200) {
-      setParams(response.params);
+      setParams(response.jobs.params);
     }
     onLoading(false);
     setTextFooter(response.alert);
-    setRow(data);
+    setRow({...data, "name": input['name']});
     setShowParams(true);
     setSelectedRow(input.id);
   };
@@ -73,8 +74,39 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   const handleProcessRow = async (data) => {
     onLoading(true);
     handleSetShowEdit();
-    data = { ...data, ["order_id"]: orderId };
-    const response = await service.update(data);
+    const position = data["position"];
+    const old_position = data["old_position"];
+    const newData = dataTable["data"].map((item) => {
+      if (item["position"] === old_position) {
+        return {
+          class: data["class"],
+          error: data["error"],
+          id: data["id"],
+          name: data["name"],
+          next: data["next"],
+          package: data["package"],
+          position: Number(data["position"]),
+        };
+      } else if (item["position"] === Number(position)) {
+        item["position"] = Number(old_position);
+        return item;
+      }
+      return item;
+    });
+
+    // Ordena los red}gidtros por posicion
+    const result = newData.sort(sortByPosition);
+
+    // Eliminar el campo "position" de cada registro
+    const records = result.map((record) => {
+      const { position, ...records } = record;
+      return records;
+    });
+
+    const response = await service.update({
+      order_id: orderId,
+      chains: records,
+    });
     if (response.code === 200) {
       response.data.forEach((item) => {
         if (item.active) {
@@ -93,15 +125,36 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   };
 
   const handleProcessParams = async (data) => {
+    //console.log(11111, data, row)
     onLoading(true);
     handleSetShowParams();
-    const request = { data: data, order_id: row.order_id, job_id: row.job_id };
-    const response = await service.updateParams(request);
+    const request = {
+      order_id: row.order_id,
+      job_id: row.job_id,
+      params: data["params"],
+    };
+    console.log("Procesar param: ", data, request);
+    const response = await service.updateParams(request, row['name']);
     if (response.code === 200) {
       setParams(response.params);
     }
     setTextFooter(response.alert);
     onLoading(false);
+  };
+
+  const sortByPosition = (a, b) => {
+    const positionA =
+      typeof a.position === "string" ? parseInt(a.position) : a.position;
+    const positionB =
+      typeof b.position === "string" ? parseInt(b.position) : b.position;
+
+    if (positionA < positionB) {
+      return -1;
+    }
+    if (positionA > positionB) {
+      return 1;
+    }
+    return 0;
   };
 
   return (
@@ -138,7 +191,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
                       key={item.id}
                       className={selectedRow === item.id ? "table-primary" : ""}
                     >
-                      <td className="text-center">{item.id}</td>
+                      <td className="text-center">{item.position}</td>
                       <td className="link-success">{item.name}</td>
                       <td>{item.package}</td>
                       <td>{item.class}</td>
