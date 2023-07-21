@@ -42,7 +42,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
     onLoading(true);
     handleSetShowEdit();
     const data = { order_id: orderId, job_id: input.id };
-    console.log(1111, input, data);
+
     const response = await service.getParams(data);
     if (response.code === 200) {
       setParams(response.jobs.params);
@@ -125,7 +125,6 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   };
 
   const handleProcessParams = async (data) => {
-    //console.log(11111, data, row)
     onLoading(true);
     handleSetShowParams();
     const request = {
