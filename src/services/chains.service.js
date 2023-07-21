@@ -194,7 +194,6 @@ class ChainsService {
   read_log_file(data) {
     try {
       return http.post(`${PATH_API}/log/${data}`).then((response) => {
-        console.log("Respuesta logs: ", response)
         if (response.data.code === 200) {
           return {
             ...response.data,
