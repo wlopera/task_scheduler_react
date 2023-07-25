@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { TITLE_CHAIN } from "../../../utils/Constants";
 import service from "../../../../services/chains.service";
 import ModalChains from "../../../modal/ModalChains";
 import ModalParams from "../../../modal/ModalParams";
+import TooltipButton from "../../../tooltips/TooltipButton ";
 
 import "./Chains.css";
 
@@ -15,6 +17,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
   const [showParams, setShowParams] = useState(false);
   const [params, setParams] = useState([]);
   const [textFooter, setTextFooter] = useState(null);
+  const [type, setType] = useState("PARAMS");
 
   useEffect(() => {
     const getData = async () => {
@@ -38,7 +41,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
     }
   }, [orderId]);
 
-  const paramRow = async (input) => {
+  const paramRow = async (input, showType) => {
     onLoading(true);
     handleSetShowEdit();
     const data = { order_id: orderId, job_id: input.id };
@@ -49,9 +52,10 @@ const Chains = ({ orderId, editButton, onLoading }) => {
     }
     onLoading(false);
     setTextFooter(response.alert);
-    setRow({...data, "name": input['name']});
+    setRow({ ...data, name: input["name"] });
     setShowParams(true);
     setSelectedRow(input.id);
+    setType(showType);
   };
 
   const modifyRow = (input) => {
@@ -133,7 +137,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
       params: data["params"],
     };
     console.log("Procesar param: ", data, request);
-    const response = await service.updateParams(request, row['name']);
+    const response = await service.updateParams(request, row["name"]);
     if (response.code === 200) {
       setParams(response.params);
     }
@@ -198,22 +202,45 @@ const Chains = ({ orderId, editButton, onLoading }) => {
                       <td className="link-danger">{item.error}</td>
                       <td className="text-center">
                         {editButton && (
-                          <button
-                            className="btn btn-light btn-sm"
-                            onClick={() => paramRow(item)}
+                          <TooltipButton
+                            id="tooltip-params"
+                            message="Listado de parámetros"
                           >
-                            <i className="bi bi-building-fill-add icon_table"></i>
-                          </button>
+                            <button
+                              className="btn btn-light btn-sm"
+                              onClick={() => paramRow(item, "PARAMS")}
+                            >
+                              <i className="bi bi-card-list icon_table"></i>
+                            </button>
+                          </TooltipButton>
+                        )}
+                        {editButton && (
+                          <TooltipButton
+                            id="tooltip-params-json"
+                            message="Archivo Json de parámetros"
+                          >
+                            <button
+                              className="btn btn-light btn-sm"
+                              onClick={() => paramRow(item, "JSON")}
+                            >
+                              <i className="bi bi-filetype-json icon_table"></i>
+                            </button>
+                          </TooltipButton>
                         )}
                       </td>
                       <td className="text-center">
                         {editButton && (
-                          <button
-                            className="btn btn-light btn-sm"
-                            onClick={() => modifyRow(item)}
+                          <TooltipButton
+                            id="tooltip-edit-task"
+                            message=" Modificar datos de la tarea"
                           >
-                            <i className="bi bi-pencil-square icon_table"></i>
-                          </button>
+                            <button
+                              className="btn btn-light btn-sm"
+                              onClick={() => modifyRow(item)}
+                            >
+                              <i className="bi bi-pencil-square icon_table"></i>
+                            </button>
+                          </TooltipButton>
                         )}
                       </td>
                     </tr>
@@ -253,6 +280,7 @@ const Chains = ({ orderId, editButton, onLoading }) => {
           row={row}
           options={dataTable.options}
           positions={dataTable.positions}
+          type={type}
         />
       )}
     </div>

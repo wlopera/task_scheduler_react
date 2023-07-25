@@ -1,8 +1,7 @@
 import React from "react";
-import {
-  Switch,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
 import { Provider } from "react-redux";
 import { configureStore } from "./redux/Store";
 
@@ -11,9 +10,11 @@ import { PrivateRoute } from "./routes/PrivateRoutes";
 import "./assets/scss/style.scss";
 
 function App() {
+  const history = createBrowserHistory();
+
   return (
     <Provider store={configureStore()}>
-      <Router history={History}>
+      <Router history={history}>
         <Switch>
           {indexRoutes.map((prop, key) => {
             return (
