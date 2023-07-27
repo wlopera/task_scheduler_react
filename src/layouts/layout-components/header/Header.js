@@ -12,8 +12,12 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Modal,
+  ModalHeader,
 } from "reactstrap";
+
+import Login from '../../../views/authentication/Login'
 
 /*--------------------------------------------------------------------------------*/
 /* Import images which are need for the HEADER                                    */
@@ -25,6 +29,7 @@ import profilephoto from "../../../assets/images/users/programmer.png";
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const settings = useSelector((state) => state.settings);
 
@@ -61,6 +66,12 @@ export default () => {
       default:
     }
   };
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
+  console.log(11111111111111, modal)
 
   return (
     <header className="topbar navbarbg" data-navbarbg={settings.activeNavbarBg}>
@@ -179,6 +190,9 @@ export default () => {
                     </a>
                   </div>
                 </div>
+                <DropdownItem  onClick={()=>setModal(true)}>
+                  <i className="fa fa-power-off mr-1 ml-1" /> Login
+                </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             {/*--------------------------------------------------------------------------------*/}
@@ -191,7 +205,7 @@ export default () => {
               <DropdownToggle nav>
                 <i className="flag-icon flag-icon-es"></i>
               </DropdownToggle>
-              <DropdownMenu right className="animated bounceInDown">               
+              <DropdownMenu right className="animated bounceInDown">
                 <DropdownItem>
                   <i className="flag-icon flag-icon-es"></i> Español
                 </DropdownItem>
@@ -205,6 +219,15 @@ export default () => {
             {/*--------------------------------------------------------------------------------*/}
           </Nav>
         </Collapse>
+        <Modal
+          isOpen={modal}
+           toggle={handleModal}
+          // className={props.className}
+          size="md"
+        >
+          <ModalHeader toggle={handleModal}>Administrador</ModalHeader>
+          <Login />
+        </Modal>
       </Navbar>
     </header>
   );

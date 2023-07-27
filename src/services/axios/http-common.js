@@ -18,6 +18,17 @@ const instance = axios.create({
   },
 });
 
+
+// Función para configurar el token en el encabezado
+const setAuthToken = (token) => {
+  console.log("set-token-agregado:", token)
+  if (token) {
+    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete instance.defaults.headers.common["Authorization"];
+  }
+};
+
 // Add a request interceptor
 // instance.interceptors.request.use(function (config) {
 //   const token = localStorage.getItem("token");
@@ -66,4 +77,5 @@ const instance = axios.create({
 //   }
 // );
 
-export default instance;
+export { instance as default, setAuthToken };
+
