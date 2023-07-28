@@ -71,8 +71,7 @@ export default () => {
     setModal(!modal);
   };
 
-  console.log(11111111111111, modal)
-
+  
   return (
     <header className="topbar navbarbg" data-navbarbg={settings.activeNavbarBg}>
       <Navbar
@@ -191,7 +190,7 @@ export default () => {
                   </div>
                 </div>
                 <DropdownItem  onClick={()=>setModal(true)}>
-                  <i className="fa fa-power-off mr-1 ml-1" /> Login
+                  <i className="fa fa-power-off mr-1 ml-1" /> Login Admin
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -226,7 +225,7 @@ export default () => {
           size="md"
         >
           <ModalHeader toggle={handleModal}>Administrador</ModalHeader>
-          <Login />
+          <Login onClose={handleModal}/>
         </Modal>
       </Navbar>
     </header>

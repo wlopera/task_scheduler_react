@@ -7,7 +7,7 @@ class AuthService {
     try {
       return http.post(`${PATH_API}/login`, data).then((response) => {
         if (response.data.code === 200) {
-          console.log("Login:", response);
+          //console.log("Login:", response);
           if (response.data.data.length > 0) {
             return {
               ...response.data,

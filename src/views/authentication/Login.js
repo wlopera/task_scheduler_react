@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import md5 from "md5";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import service from "../../services/auth.service";
+import { updateLogin } from "../../redux/admin/Action";
 
-const Login = () => {
+const Login = ({ onClose }) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [alert, setAlert] = useState(null);
   const [show, setShow] = React.useState(false);
 
-  let history = useHistory();
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -25,6 +26,7 @@ const Login = () => {
     event.preventDefault();
     setAlert(null);
     localStorage.removeItem("token");
+    dispatch(updateLogin(false));
 
     // Primer caracter se convierte a minuscula
     const res = await service.login({
@@ -32,12 +34,19 @@ const Login = () => {
       password: md5(user.password),
     });
 
-    console.log(1111, res.data['token'])
-    if (res.data.error) {
-      setAlert(res.data.error.message);
+    console.log(123, res)
+    if (res.data.code === 200) {
+      dispatch(updateLogin(true));
+      localStorage.setItem("token", res.data["token"]);
+      onClose();
     } else {
-      localStorage.setItem("token", res.data['token']);
+      setAlert(res.data.description);
     }
+  };
+
+  const handlerClose = (event) => {
+    event.preventDefault();
+    onClose();
   };
 
   return (
@@ -111,7 +120,13 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <button type="submit" className="btn btn-primary w-50">
+                  <button
+                    className="btn btn-danger w-50 m-2"
+                    onClick={handlerClose}
+                  >
+                    Salir
+                  </button>
+                  <button type="submit" className="btn btn-primary w-50 m-2">
                     Conectarse
                   </button>
                 </div>
