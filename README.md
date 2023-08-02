@@ -161,6 +161,27 @@ Procesamiento de ordenes a través de tareas encadenadas - frontend React
       - Subir la ultima versión al repo de github (master)
       - Publicar en cuenta cetlify importando y deploy de la versión de github
 
+
+### Uso JWT para generar token y conectarse como administrador - poder eliminar registros Logs e Histórico de MongoDB.
+![Captura1](https://github.com/wlopera/task_scheduler_react/assets/7141537/42ebe084-d322-4d6b-b2b4-736e8deb3dfb)
+![Captura2](https://github.com/wlopera/task_scheduler_react/assets/7141537/2a2e7a84-7a0a-476a-99a2-7a9fb0816c22)
+
+![Captura3](https://github.com/wlopera/task_scheduler_react/assets/7141537/7e5d74d7-9eb9-4afa-b769-b124f5a1a143)
+
+##### Se generar un token - enviar token en servicio de borrar Logs e Históricos de MongoDB (middleware)
+![Captura4](https://github.com/wlopera/task_scheduler_react/assets/7141537/da27cd69-0e90-4c4f-bfe8-02650b7adb05)
+
+##### Se envia password encriptado al Backend y este retorna un token o respuesta con información Ok o Error
+![Captura5](https://github.com/wlopera/task_scheduler_react/assets/7141537/10d9be19-3ea7-461a-8729-083821479591)
+![Captura6](https://github.com/wlopera/task_scheduler_react/assets/7141537/10980f17-8272-4e9b-b057-ef4edf7d9bac)
+![Captura7](https://github.com/wlopera/task_scheduler_react/assets/7141537/992705c2-faf1-402e-98de-a893a6a986b1)
+
+
+
+
+
 ### Demo:
 https://cute-kulfi-b4cf4e.netlify.app
+
+
 
