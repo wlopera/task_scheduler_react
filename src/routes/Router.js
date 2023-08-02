@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import AuthRoutes from "./AuthRoutes";
 
 const Home = lazy(() =>
   import("../components/templates/Home")
@@ -23,6 +24,8 @@ import("../components/templates/templateProcess/history/History")
 const TemplateAdmin = lazy(() =>
   import("../components/templates/templateAdmin/TemplateAdmin")
 );
+
+const auths = [].concat(AuthRoutes);
 
 var ThemeRoutes = [
   {
@@ -77,6 +80,14 @@ var ThemeRoutes = [
     component: History,
     updateHistory: true
   },
+  // {
+  //   path: "/authentication",
+  //   name: "Authentication",
+  //   state: "openAuthentication",
+  //   icon: "alert-triangle",
+  //   child: auths,
+  //   collapse: true,
+  // },
   {
     navlabel: true,
     name: "ADMINISTRACION",

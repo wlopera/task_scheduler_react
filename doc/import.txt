@@ -1,32 +1,28 @@
 ----------------------------------------------------------------------
 Frontend: React
 ----------------------------------------------------------------------
-> npm init -y
-> npm install react 
-> npm install react-dom 
-> npm install react-bootstrap-table-next 
-> npm install bootstrap 
-> npm install semantic-ui-react
-> npm install react-scripts
-> npm install @fortawesome/react-fontawesome@latest
-> npm install @fortawesome/free-solid-svg-icons
-> npm install --save @fortawesome/fontawesome-svg-core
+ - ver package.jon para ver librerías
 
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
-Backend: Python - Flask
+Frontend: React 
 ----------------------------------------------------------------------
-> pip install flask-cors
 
-app.py:
-    from flask_cors import CORS
-    ...
-    
-    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
-    # CORS(app, resources={r"/api/*": {"origins": "*"}}) # Mas generico
 ----------------------------------------------------------------------
+-frontend\public\runtime-config.js
 ----------------------------------------------------------------------
+window["runConfig"] = {
+  // BACKEND_URL: "https://backend-tau-teal.vercel.app/api/",
+  BACKEND_URL: "http://localhost:5000/api/",
+};
+
+----------------------------------------------------------------------
+
+Nota:
+    - Al subir a netlify si da error revisar logs.
+      En una prueba fue necesario actualizar librería node-sass a la más reciente
+      
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------

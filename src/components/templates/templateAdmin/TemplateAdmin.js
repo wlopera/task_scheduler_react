@@ -1,29 +1,46 @@
 import React, { useState } from "react";
 
 import service from "../../../services/scheduler.service";
+import { useSelector } from "react-redux";
 
 const TemplateAdmin = () => {
   const [loading, setLoading] = useState(false);
   const [textFooter, setTextFooter] = useState(null);
 
+  const admin = useSelector((state) => state.adminReducer.admin);
+
   const deleteAllHistorical = async () => {
-    setLoading(true);
-    const response = await service.delete_historical();
-    if (response.code === 200) {
-      setParams(response.jobs.params);
+    if (admin) {
+      setLoading(true);
+      const response = await service.delete_historical();
+      if (response.code === 200) {
+        setParams(response.jobs.params);
+      }
+      setLoading(false);
+      setTextFooter(response.alert);
+    } else {
+      setTextFooter({
+        type: "ERROR",
+        text: `Debe estar conectado como administrador`,
+      });
     }
-    setLoading(false);
-    setTextFooter(response.alert);
   };
 
   const deleteAllLogs = async () => {
-    setLoading(true);
-    const response = await service.delete_logs();
-    if (response.code === 200) {
-      setParams(response.jobs.params);
+    if (admin) {
+      setLoading(true);
+      const response = await service.delete_logs();
+      if (response.code === 200) {
+        setParams(response.jobs.params);
+      }
+      setLoading(false);
+      setTextFooter(response.alert);
+    } else {
+      setTextFooter({
+        type: "ERROR",
+        text: `Debe estar conectado como administrador`,
+      });
     }
-    setLoading(false);
-    setTextFooter(response.alert);
   };
 
   return (

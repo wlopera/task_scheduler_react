@@ -1,5 +1,8 @@
 # task_scheduler_react
 Procesamiento de ordenes a través de tareas encadenadas - frontend React
+
+- Debe estar arriba el backend: (publicado en vercel)
+  https://github.com/wlopera/task-scheduler-python
 ***
 <div>
       <h1>PROCESAMIENTO TAREAS: PYTHON-REACT</h1>
@@ -153,3 +156,11 @@ Procesamiento de ordenes a través de tareas encadenadas - frontend React
 
 ### Borrar registros de MongoDB - Depurar
 ![depurar mongoDB](https://github.com/wlopera/task_scheduler_react/assets/7141537/d38ac18b-ce18-4374-8c6c-8a47f903363c)
+
+### Publicar en netlify:
+      - Subir la ultima versión al repo de github (master)
+      - Publicar en cuenta cetlify importando y deploy de la versión de github
+
+### Demo:
+https://cute-kulfi-b4cf4e.netlify.app
+

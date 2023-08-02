@@ -1,11 +1,20 @@
-import http from "./axios/http-common";
+import http, {setAuthToken} from "./axios/http-common";
+
 
 const PATH_API = "/chains";
 
 class SchedulerService {
   delete_historical() {
     try {
+      // Obtener el token de donde corresponda (por ejemplo, localStorage, contexto de autenticación, etc.)
+      const token = localStorage.getItem("token");
+      
+      // Configurar el token en el encabezado antes de realizar la solicitud
+      setAuthToken(token);
+      console.log("token: ", token)
+      
       return http.post(`${PATH_API}/delete_historical`).then((response) => {
+        console.log("response: ", response)
         if (response.data.code === 200) {
           return {
             alert: {
@@ -24,9 +33,10 @@ class SchedulerService {
         }
       });
     } catch (error) {
+      console.log("error: ", error)
       const errorMessage = error.response;
       return {
-        data: response.data,
+        data: {},
         message: {
           type: "ERROR",
           text: `Error borrando registros históricos: ${errorMessage}`,
